@@ -25,5 +25,5 @@ jobs:
           set -euo pipefail
           python -m pip install 'conan>=2.28,<3'
           conan profile detect --force
-          conan create . --build=missing
+          conan create . -s compiler.cppstd=20 --build=missing
           conan list 'agentforge-telegram-notifier/*:*'
