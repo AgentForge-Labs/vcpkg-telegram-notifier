@@ -1,0 +1,1 @@
+{"name":"agentforge-telegram-notifier","version-string":"0.2.0","description":"Public C++20 SDK","homepage":"https://github.com/AgentForge-Labs/vcpkg-telegram-notifier","license":"AGPL-3.0-only","dependencies":["curl","nlohmann-json",{"name":"vcpkg-cmake","host":true},{"name":"vcpkg-cmake-config","host":true}]}

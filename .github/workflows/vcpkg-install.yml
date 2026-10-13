@@ -1,0 +1,26 @@
+name: Public vcpkg overlay installation
+on:
+  push:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  linux-public-install:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Bootstrap official vcpkg
+        shell: bash
+        run: |
+          set -euo pipefail
+          git clone --depth 1 https://github.com/microsoft/vcpkg.git "$RUNNER_TEMP/vcpkg"
+          "$RUNNER_TEMP/vcpkg/bootstrap-vcpkg.sh" -disableMetrics
+      - name: Install public overlay from clean checkout
+        shell: bash
+        run: |
+          set -euo pipefail
+          "$RUNNER_TEMP/vcpkg/vcpkg" install agentforge-telegram-notifier --triplet x64-linux --overlay-ports="$GITHUB_WORKSPACE/ports"
+          test -s "$RUNNER_TEMP/vcpkg/installed/x64-linux/include/agentforge/telegram_notifier.hpp"
